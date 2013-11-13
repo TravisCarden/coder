@@ -16,9 +16,9 @@
 /**
  * PHP_CodeSniffer_Sniffs_Drupal_Commenting_InlineCommentSniff.
  *
- * Checks that no perl-style comments are used. Checks that inline comments ("//")
- * have a space after //, start capitalized and end with proper punctuation.
- * Largely copied from Squiz_Sniffs_Commenting_InlineCommentSniff.
+ * Checks that inline comments ("//") have a space after //, start capitalized
+ * and end with proper punctuation. Largely copied from
+ * Squiz_Sniffs_Commenting_InlineCommentSniff.
  *
  * @category  PHP
  * @package   PHP_CodeSniffer
@@ -112,11 +112,6 @@ class Drupal_Sniffs_Commenting_InlineCommentSniff implements PHP_CodeSniffer_Sni
                 }
             }//end if
         }//end if
-
-        if ($tokens[$stackPtr]['content']{0} === '#') {
-            $error = 'Perl-style comments are not allowed; use "// Comment" instead';
-            $phpcsFile->addError($error, $stackPtr, 'WrongStyle');
-        }
 
         $comment = rtrim($tokens[$stackPtr]['content']);
 
