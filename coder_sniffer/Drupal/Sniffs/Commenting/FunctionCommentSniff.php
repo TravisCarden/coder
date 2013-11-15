@@ -363,7 +363,7 @@ class Drupal_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_S
                 $commentWhitespace = $return->getWhitespaceBeforeComment();
                 if (substr_count($return->getWhitespaceBeforeValue(), $this->currentFile->eolChar) > 0) {
                     $error = 'Data type of return value is missing';
-                    $this->currentFile->addError($error, $errorPos, 'MissingReturnType');
+                    // $this->currentFile->addError($error, $errorPos, 'MissingReturnType');
                     // Treat the value as part of the comment.
                     $comment = $return->getValue().' '.$comment;
                     $commentWhitespace = $return->getWhitespaceBeforeValue();
@@ -518,7 +518,7 @@ class Drupal_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_S
 
                 if ($param->getType() === '') {
                     $error = 'Missing parameter type at position '.$pos;
-                    $this->currentFile->addError($error, $errorPos, 'MissingParamType');
+                    // $this->currentFile->addError($error, $errorPos, 'MissingParamType');
                 }
 
                 if (in_array($param->getType(), array('unknown_type', '<type>', 'type')) === true) {
