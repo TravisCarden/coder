@@ -84,7 +84,7 @@ class Drupal_Sniffs_Array_ArraySniff implements PHP_CodeSniffer_Sniff
                     $comma2 = $phpcsFile->findNext(T_COMMA, ($comma1 + 1), $tokens[$stackPtr]['parenthesis_closer']);
                     if ($comma2 !== false) {
                         $error = 'If the line declaring an array spans longer than 80 characters, each element should be broken into its own line';
-                        $phpcsFile->addError($error, $stackPtr, 'LongLineDeclaration');
+                        // $phpcsFile->addError($error, $stackPtr, 'LongLineDeclaration');
                     }
                 }
             }
