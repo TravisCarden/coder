@@ -61,58 +61,6 @@ class Drupal_Sniffs_Commenting_InlineCommentSniff implements PHP_CodeSniffer_Sni
     {
         $tokens = $phpcsFile->getTokens();
 
-        // If this is a function/class/interface doc block comment, skip it.
-        // We are only interested in inline doc block comments, which are
-        // not allowed.
-        if ($tokens[$stackPtr]['code'] === T_DOC_COMMENT) {
-            $nextToken = $phpcsFile->findNext(
-                PHP_CodeSniffer_Tokens::$emptyTokens,
-                ($stackPtr + 1),
-                null,
-                true
-            );
-
-            $ignore = array(
-                       T_CLASS,
-                       T_INTERFACE,
-                       T_FUNCTION,
-                       T_PUBLIC,
-                       T_PRIVATE,
-                       T_PROTECTED,
-                       T_FINAL,
-                       T_STATIC,
-                       T_ABSTRACT,
-                       T_CONST,
-                       T_OBJECT,
-                       T_PROPERTY,
-                      );
-
-            // Also ignore all doc blocks defined in the outer scope (no scope
-            // conditions are set).
-            if (in_array($tokens[$nextToken]['code'], $ignore) === true
-                || empty($tokens[$stackPtr]['conditions']) === true
-            ) {
-                return;
-            } else {
-                $prevToken = $phpcsFile->findPrevious(
-                    PHP_CodeSniffer_Tokens::$emptyTokens,
-                    ($stackPtr - 1),
-                    null,
-                    true
-                );
-
-                if ($tokens[$prevToken]['code'] === T_OPEN_TAG) {
-                    return;
-                }
-
-                // Only error once per comment.
-                if (substr($tokens[$stackPtr]['content'], 0, 3) === '/**') {
-                    $error = 'Inline doc block comments are not allowed; use "// Comment" instead';
-                    $phpcsFile->addError($error, $stackPtr, 'DocBlock');
-                }
-            }//end if
-        }//end if
-
         if ($tokens[$stackPtr]['content']{0} === '#') {
             $error = 'Perl-style comments are not allowed; use "// Comment" instead';
             $phpcsFile->addError($error, $stackPtr, 'WrongStyle');
